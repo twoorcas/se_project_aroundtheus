@@ -1,0 +1,128 @@
+@import url(/vendor/normalize.css);
+@import url(/vendor/fonts.css);
+
+.page {
+  background: black;
+  color: white;
+  padding: 45px 200px 60px 200px;
+  max-width: 1280px;
+}
+.button {
+  background: black;
+  border-width: 0;
+  padding: 0;
+}
+.header {
+  border-bottom: solid white;
+  padding-bottom: 41px;
+  background-color: black;
+}
+.header__logo {
+  width: 173px;
+  height: 33px;
+}
+
+.page__profile {
+  margin-top: 40px;
+  margin-bottom: 51px;
+}
+.profile {
+  display: flex;
+  height: 120px;
+  padding: 0;
+  justify-content: space-between;
+}
+.profile__people {
+  display: flex;
+  align-items: center;
+}
+.profile__photo {
+  background-image: url(/images/jacques-cousteau.jpg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+.profile__info {
+  margin-left: 30px;
+}
+.profile__info-accent {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.profile__name {
+  margin: 0;
+  color: #fff;
+  font-family: Inter;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px; /* 114.286% */
+}
+.profile__description {
+  margin: 0;
+  color: #fff;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.profile__edit-button {
+}
+.profile__add-button {
+}
+.cards__list {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  border-radius: 10px;
+  grid-column-gap: 17px;
+  grid-row-gap: 20px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+}
+.card__image {
+  width: 100%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.card__description {
+  margin: 0;
+  color: #000;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+}
+.card__button {
+  background: white;
+  width: 21px;
+  height: 18px;
+}
+.card__about-image {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 30px 25px 20px;
+}
+.footer {
+  color: #545454;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.page__footer {
+  margin-top: 67px;
+}
