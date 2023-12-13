@@ -1,0 +1,136 @@
+.button {
+  background: transparent center no-repeat;
+  border-width: 0;
+  padding: 0;
+}
+.button:hover {
+  opacity: 0.6;
+}
+.profile {
+  display: flex;
+  height: 120px;
+  padding: 0;
+  justify-content: space-between;
+  max-width: 880px;
+  align-items: center;
+}
+.profile__people {
+  display: flex;
+  align-items: center;
+}
+.profile__photo {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+
+.profile__info {
+  margin-left: 30px;
+}
+.profile__info-accent {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.profile__name {
+  margin: 0;
+  color: #fff;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 550px;
+}
+.profile__description {
+  margin: 0;
+  color: #fff;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 410px;
+}
+.profile__edit-button {
+  background-image: url(../images/Edit\ Button.svg);
+  width: 24px;
+  height: 24px;
+}
+.profile__add-button {
+  margin-left: 10px;
+  background-image: url(../images/Add\ Button.svg);
+  width: 150px;
+  height: 50px;
+}
+@media screen and (max-width: 770px) {
+  .profile {
+    height: 286px;
+  }
+  .profile__people {
+    flex-direction: column;
+    gap: 26.25px;
+  }
+
+  .profile__info {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .profile__info-accent {
+    gap: 10px;
+  }
+  .profile__name {
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.2;
+    max-width: 250px;
+  }
+  .profile__description {
+    margin: 0 auto;
+    color: #fff;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    max-width: 282px;
+  }
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    background-image: url(../images/Edit\ Button\ small.svg);
+  }
+
+  .profile__add-button {
+    width: 282px;
+    height: 50px;
+    margin: 36px auto 0;
+    background-image: url(../images/add\ button\ small.svg);
+    border-radius: 2px;
+    border: 2px solid #fff;
+  }
+
+  .footer {
+    color: #545454;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+}

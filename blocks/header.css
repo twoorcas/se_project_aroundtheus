@@ -1,0 +1,25 @@
+.header {
+  border-bottom: solid #545454 1px;
+  padding-bottom: 41px;
+  background-color: black;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.header__logo {
+  width: 173px;
+  height: 33px;
+}
+@media screen and (max-width: 770px) {
+  .header {
+    padding: 0px;
+    background-color: black;
+    max-width: 320px;
+    margin: 0 auto;
+    border-bottom: solid #545454 1px;
+    padding: 28px 0 32px 27px;
+  }
+  .header__logo {
+    width: 126px;
+    height: 24px;
+  }
+}

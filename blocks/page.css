@@ -1,0 +1,40 @@
+.page {
+  background: black;
+  color: white;
+  padding-top: 45px;
+  padding-bottom: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0 auto;
+  max-width: 1280px;
+  min-width: 320px;
+}
+.page__profile {
+  margin: 40px auto 51px;
+}
+.page__cards {
+  margin: 0 auto;
+}
+.page__footer {
+  margin: 67px auto 0;
+  max-width: 880px;
+}
+
+@media screen and (max-width: 770px) {
+  .page {
+    max-width: 320px;
+    padding: 0px;
+  }
+
+  .page__profile {
+    max-width: 282px;
+    flex-direction: column;
+    align-items: center;
+    margin: 42px auto 36px;
+  }
+
+  .page__footer {
+    margin: 48px auto 36px;
+    max-width: 282px;
+  }
+}
