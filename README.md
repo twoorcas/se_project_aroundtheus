@@ -16,6 +16,6 @@ This project is made to practice a part of front-end engineering-- creating a we
 
 **Github link and video link**
 
-- [Link to the project on Github](https://github.com/twoorcas/se_project_aroundtheus)
+- [Link to the project on Github](https://twoorcas.github.io/se_project_aroundtheus/)
 
 - [Link to the video on google drive](https://drive.google.com/file/d/1aWP0jURUZBhCqRR0bmRTnmcy1kF3Ibj4/view?usp=drive_link)

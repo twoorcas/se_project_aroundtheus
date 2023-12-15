@@ -1,6 +1,6 @@
 .header {
-  border-bottom: solid #545454 1px;
-  padding-bottom: 41px;
+  border-bottom: solid rgb(84 84 84/ 0.7) 1px;
+  padding-bottom: 40px;
   background-color: black;
   max-width: 880px;
   margin: 0 auto;
@@ -11,10 +11,7 @@
 }
 @media screen and (max-width: 770px) {
   .header {
-    background-color: black;
     max-width: 320px;
-    margin: 0 auto;
-    border-bottom: solid #545454 1px;
     padding: 28px 0 32px 27px;
   }
   .header__logo {

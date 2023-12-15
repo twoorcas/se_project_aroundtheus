@@ -1,14 +1,6 @@
-.button {
-  background: transparent center no-repeat;
-  border-width: 0;
-  padding: 0;
-}
-.button:hover {
-  opacity: 0.6;
-}
 .profile {
   display: flex;
-  height: 120px;
+  min-height: 120px;
   padding: 0;
   justify-content: space-between;
   max-width: 880px;
@@ -19,6 +11,7 @@
   align-items: center;
 }
 .profile__photo {
+  object-fit: cover;
   height: 120px;
   width: 120px;
   border-radius: 50%;
@@ -44,7 +37,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 550px;
+  max-width: 380px;
 }
 .profile__description {
   margin: 0;
@@ -72,7 +65,7 @@
 }
 @media screen and (max-width: 770px) {
   .profile {
-    height: 286px;
+    min-height: 286px;
   }
   .profile__people {
     flex-direction: column;

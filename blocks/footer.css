@@ -1,19 +1,15 @@
-.footer {
+.footer__copyright {
   color: #545454;
   font-family: Inter, Arial, sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 1.2;
+  margin: 0;
 }
 
 @media screen and (max-width: 770px) {
-  .footer {
-    color: #545454;
-    font-family: Inter, Arial, sans-serif;
+  .footer__copyright {
     font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.2;
   }
 }
