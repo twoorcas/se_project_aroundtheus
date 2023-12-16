@@ -83,24 +83,11 @@
     gap: 10px;
   }
   .profile__name {
-    margin: 0;
-    color: #fff;
-    text-align: center;
-    font-family: Inter, Arial, sans-serif;
     font-size: 22px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.2;
     max-width: 250px;
   }
   .profile__description {
-    margin: 0 auto;
-    color: #fff;
-    font-family: Inter, Arial, sans-serif;
     font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.2;
     max-width: 282px;
   }
   .profile__edit-button {
@@ -116,14 +103,5 @@
     background-image: url(../images/add\ button\ small.svg);
     border-radius: 2px;
     border: 2px solid #fff;
-  }
-
-  .footer {
-    color: #545454;
-    font-family: Inter, Arial, sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.2;
   }
 }
