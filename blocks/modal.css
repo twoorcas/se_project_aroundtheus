@@ -12,7 +12,7 @@
   padding-left: 19px;
   padding-right: 19px;
 }
-.modal__opened {
+.modal_opened {
   display: flex;
 }
 
