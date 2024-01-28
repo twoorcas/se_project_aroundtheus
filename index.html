@@ -25,7 +25,9 @@
 
           <div class="profile__info">
             <div class="profile__info-accent">
-              <h1 class="profile__name">Jacques Cousteau</h1>
+              <h1 class="profile__name" id="js-profile-name">
+                Jacques Cousteau
+              </h1>
               <button
                 class="profile__edit-button button"
                 type="button"
@@ -33,7 +35,9 @@
               ></button>
             </div>
 
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description" id="js-profile-description">
+              Explorer
+            </p>
           </div>
         </div>
         <button class="profile__add-button button" type="button"></button>
@@ -113,13 +117,20 @@
         <button class="modal__close" id="profile-edit-modal-close-btn"></button>
         <p class="modal__heading">Edit profile</p>
         <form class="modal__form">
-          <input type="text" name="title" class="modal__input" />
-          <input type="text" name="description" class="modal__input" /><button
-            class="modal__save"
-            type="submit"
-          >
-            Save
-          </button>
+          <input
+            type="text"
+            name="title"
+            class="modal__input"
+            id="modal-title-input"
+            placeholder="Name"
+          />
+          <input
+            type="text"
+            name="description"
+            class="modal__input"
+            id="modal-description-input"
+            placeholder="Description"
+          /><button class="modal__save" type="submit">Save</button>
         </form>
       </div>
     </div>
