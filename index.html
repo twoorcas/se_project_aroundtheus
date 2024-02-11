@@ -49,9 +49,13 @@
     <footer class="footer page__footer">
       <p class="footer__copyright">© 2022 Around The U.S.</p>
     </footer>
+    <!-- edit button modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__close" id="profile-edit-modal-close-btn"></button>
+        <button
+          class="modal__close button"
+          id="profile-edit-modal-close-btn"
+        ></button>
         <p class="modal__heading">Edit profile</p>
         <form class="modal__form">
           <input
@@ -67,19 +71,60 @@
             class="modal__input"
             id="modal-description-input"
             placeholder="Description"
-          /><button class="modal__save" type="submit">Save</button>
+          /><button class="modal__save button" type="submit">Save</button>
         </form>
       </div>
     </div>
+
+    <!-- add button modal -->
+    <div class="modal" id="profile-add-card-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close button"
+          id="profile-add-card-modal-close-btn"
+        ></button>
+        <p class="modal__heading">New Place</p>
+        <form class="modal__form" id="add-card-form">
+          <input
+            type="text"
+            name="title"
+            class="modal__input modal__input_type_title"
+            id="modal-image-title-input"
+            placeholder="Title"
+          />
+          <input
+            type="text"
+            name="link"
+            class="modal__input modal__input_type_link"
+            id="modal-link-input"
+            placeholder="Image Link"
+          /><button class="modal__save button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- open pic modal -->
+    <div class="modal open-pic modal__open-pic" id="open-pic-modal">
+      <div class="modal__container modal__open-pic-container">
+        <button
+          class="modal__close button"
+          id="open-pic-modal-close-btn"
+        ></button>
+        <img src="" alt="" class="modal__open-pic-image" id="open-pic-image" />
+        <p class="modal__open-pic-title" id="open-pic-title"></p>
+      </div>
+    </div>
+    <!-- template -->
     <template id="card-template">
       <li class="card cards__card">
         <img src="" alt="" class="card__image" />
+        <img src="" alt="" class="card__trash" />
         <div class="card__about-image">
           <h2 class="card__description"></h2>
           <button class="card__button button" type="button"></button>
         </div>
       </li>
     </template>
+
     <script src="./scripts/index.js"></script>
   </body>
 </html>

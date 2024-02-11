@@ -4,6 +4,7 @@
   color: black;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .card__image {
   object-fit: cover;
@@ -36,6 +37,24 @@
   width: 21px;
   height: 18px;
 }
+.card__button-active {
+  background-image: url(../images/like\ button\ active.svg);
+}
 .card__button:hover {
   opacity: 0.5;
+}
+.card__trash {
+  background-image: url(../images/Trash.svg);
+  position: absolute;
+  top: 17px;
+  right: 17px;
+  width: 18px;
+  height: 19.3px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+.card__trash:hover {
+  background-image: url(../images/Trash\ active.svg);
 }
