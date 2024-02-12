@@ -8,11 +8,11 @@
 
 **Intro**
 
-This project is made to practice a part of front-end engineering-- creating a webpage with responsive design. You can read the website on your smartphone, tablet or desktop and it will display nicely.
+This project is made to showcase my html and javascript skills.
 
 **Example**
 
-![screen width: 1280px](/images/demo.png)
+![screen width: 1280px](./images/screenshot.png)
 
 **Github link and video link**
 
