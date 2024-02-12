@@ -110,6 +110,8 @@ function getCardElement(data) {
 /*event listeners*/
 // edit popup
 profileEditBtn.addEventListener("click", function () {
+  profileTitleInput.value = profileName.innerText;
+  profileDescriptionInput.value = profileDescription.innerText;
   openPopup(profileEditModal);
 });
 profileForm.addEventListener("submit", handleProfileSubmit);
