@@ -22,7 +22,6 @@
   opacity: 1;
   transition-delay: 0s;
 }
-
 .modal__container {
   position: relative;
   margin: auto;
@@ -46,7 +45,6 @@
   cursor: pointer;
   padding: 0;
 }
-
 .modal__heading {
   color: #000;
   font-family: Inter, Arial, sans-serif;
