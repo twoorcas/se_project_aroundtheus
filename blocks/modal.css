@@ -55,11 +55,12 @@
   margin: 0;
   margin-bottom: 54px;
 }
+
 .modal__input {
   display: block;
   margin: 0 0 30px 0;
   padding: 0;
-  padding-bottom: 14px;
+  padding-bottom: 12px;
   width: 100%;
   border: none;
   border-bottom: 1px rgb(0, 0, 0, 0.15) solid;
@@ -68,6 +69,21 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1.2;
+}
+.modal__input_type_error {
+  border-bottom: 1px #ff0000 solid;
+  margin: 0 0 2px 0;
+}
+.modal__error_visible {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #ff0000;
+  margin-bottom: 14px;
 }
 .modal__save {
   margin-top: 18px;
@@ -84,6 +100,11 @@
   padding-top: 15px;
   padding-bottom: 20px;
   cursor: pointer;
+}
+.modal__save_disabled {
+  background-color: transparent;
+  color: rgb(0, 0, 0, 0.15);
+  border: 1px rgb(0, 0, 0, 0.15) solid;
 }
 .modal__open-pic-container {
   border-radius: 0;
