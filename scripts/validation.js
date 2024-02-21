@@ -51,26 +51,25 @@ function enableValidation(config) {
     setEventListeners(formEl, config);
   });
 }
-function closeModal(modalEl) {
-  modalEl.classList.remove("modal_opened");
-}
+
 function clickOverlay() {
   const modalEls = [...document.querySelectorAll(".modal")];
   modalEls.forEach((modalEl) => {
     modalEl.addEventListener("click", (e) => {
       if (e.target === modalEl) {
-        closeModal(modalEl);
+        closePopup(modalEl);
       }
     });
   });
 }
-
 function pressEsc() {
   const modalEls = [...document.querySelectorAll(".modal")];
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       modalEls.forEach((modalEl) => {
-        closeModal(modalEl);
+        if (modalEl.classList.contains("modal_opened")) {
+          closePopup(modalEl);
+        }
       });
     }
   });
@@ -86,4 +85,5 @@ const config = {
 };
 enableValidation(config);
 clickOverlay();
+
 pressEsc();
