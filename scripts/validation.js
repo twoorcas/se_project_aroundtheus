@@ -1,3 +1,4 @@
+const modalEls = [...document.querySelectorAll(".modal")];
 function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
   inputEl.classList.add(inputErrorClass);
@@ -53,7 +54,6 @@ function enableValidation(config) {
 }
 
 function clickOverlay() {
-  const modalEls = [...document.querySelectorAll(".modal")];
   modalEls.forEach((modalEl) => {
     modalEl.addEventListener("click", (e) => {
       if (e.target === modalEl) {
@@ -63,7 +63,6 @@ function clickOverlay() {
   });
 }
 function pressEsc() {
-  const modalEls = [...document.querySelectorAll(".modal")];
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       modalEls.forEach((modalEl) => {
