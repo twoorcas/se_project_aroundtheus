@@ -66,6 +66,7 @@ function clickOverlay() {
 }
 
 function pressEsc() {
+  const modalEls = [...document.querySelectorAll(".modal")];
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       modalEls.forEach((modalEl) => {
