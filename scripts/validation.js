@@ -1,4 +1,3 @@
-const modalEls = [...document.querySelectorAll(".modal")];
 function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
   inputEl.classList.add(inputErrorClass);
@@ -53,27 +52,6 @@ function enableValidation(config) {
   });
 }
 
-function clickOverlay() {
-  modalEls.forEach((modalEl) => {
-    modalEl.addEventListener("click", (e) => {
-      if (e.target === modalEl) {
-        closePopup(modalEl);
-      }
-    });
-  });
-}
-function pressEsc() {
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      modalEls.forEach((modalEl) => {
-        if (modalEl.classList.contains("modal_opened")) {
-          closePopup(modalEl);
-        }
-      });
-    }
-  });
-}
-
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
@@ -83,6 +61,3 @@ const config = {
   errorClass: "modal__error_visible",
 };
 enableValidation(config);
-clickOverlay();
-
-pressEsc();

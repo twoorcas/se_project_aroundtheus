@@ -53,6 +53,7 @@ const openPicModal = document.querySelector("#open-pic-modal");
 const openPicImage = openPicModal.querySelector("#open-pic-image");
 const openPicTitle = openPicModal.querySelector("#open-pic-title");
 const openPicCloseBtn = openPicModal.querySelector("#open-pic-modal-close-btn");
+const modalEls = [...document.querySelectorAll(".modal")];
 /*functions*/
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
@@ -106,7 +107,26 @@ function getCardElement(data) {
   });
   return cardElement;
 }
-
+function clickOverlay() {
+  modalEls.forEach((modalEl) => {
+    modalEl.addEventListener("click", (e) => {
+      if (e.target === modalEl) {
+        closePopup(modalEl);
+      }
+    });
+  });
+}
+function pressEsc() {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      modalEls.forEach((modalEl) => {
+        if (modalEl.classList.contains("modal_opened")) {
+          closePopup(modalEl);
+        }
+      });
+    }
+  });
+}
 /*event listeners*/
 // edit popup
 profileEditBtn.addEventListener("click", function () {
@@ -129,3 +149,6 @@ initialCards.forEach((data) => {
   const cardElement = getCardElement(data);
   cardListEl.append(cardElement);
 });
+
+clickOverlay();
+pressEsc();
