@@ -57,11 +57,11 @@ const modalEls = [...document.querySelectorAll(".modal")];
 /*functions*/
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
-  document.addEventListener("keydown", pressEsc(e));
+  document.removeEventListener("keydown", pressEsc);
 }
 function openPopup(modal) {
   modal.classList.add("modal_opened");
-  document.removeEventListener("keydown", pressEsc(e));
+  document.addEventListener("keydown", pressEsc);
 }
 function handleProfileSubmit(e) {
   e.preventDefault();
@@ -120,7 +120,8 @@ function clickOverlay() {
 }
 function pressEsc(e) {
   if (e.key === "Escape") {
-    closePopup(modalEl);
+    const openedPopup = document.querySelector(".modal_opened");
+    closePopup(openedPopup);
   }
 }
 /*event listeners*/
