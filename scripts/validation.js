@@ -31,19 +31,19 @@ function toggleButtonstate(inputEls, submitButton, { inactiveButtonClass }) {
   submitButton.classList.remove(inactiveButtonClass);
   submitButton.disabled = false;
 }
-function setEventListeners(formEl, { inactiveButtonClass }) {
+function setEventListeners(formEl, config) {
   const inputEls = [...formEl.querySelectorAll(config.inputSelector)];
   const submitButton = formEl.querySelector(config.submitButtonSelector);
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (e) => {
       checkInputValidity(formEl, inputEl, config);
-      toggleButtonstate(inputEls, submitButton, { inactiveButtonClass });
+      toggleButtonstate(inputEls, submitButton, config);
     });
   });
 }
+
 function enableValidation(config) {
   const formEls = [...document.querySelectorAll(config.formSelector)];
-
   formEls.forEach((formEl) => {
     formEl.addEventListener("submit", (e) => {
       e.preventDefault();

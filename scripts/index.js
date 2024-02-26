@@ -57,9 +57,11 @@ const modalEls = [...document.querySelectorAll(".modal")];
 /*functions*/
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
+  document.addEventListener("keydown", pressEsc(e));
 }
 function openPopup(modal) {
   modal.classList.add("modal_opened");
+  document.removeEventListener("keydown", pressEsc(e));
 }
 function handleProfileSubmit(e) {
   e.preventDefault();
@@ -116,16 +118,10 @@ function clickOverlay() {
     });
   });
 }
-function pressEsc() {
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      modalEls.forEach((modalEl) => {
-        if (modalEl.classList.contains("modal_opened")) {
-          closePopup(modalEl);
-        }
-      });
-    }
-  });
+function pressEsc(e) {
+  if (e.key === "Escape") {
+    closePopup(modalEl);
+  }
 }
 /*event listeners*/
 // edit popup
@@ -151,4 +147,3 @@ initialCards.forEach((data) => {
 });
 
 clickOverlay();
-pressEsc();
