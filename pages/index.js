@@ -1,3 +1,5 @@
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -82,32 +84,12 @@ function handleAddCardSubmit(e) {
   closePopup(addCardModal);
   e.target.reset();
 }
-function getCardElement(data) {
-  const cardElement = cardTemp.cloneNode(true);
-  const cardTitle = data.name;
-  const cardLink = data.link;
-  const cardTitleEl = cardElement.querySelector(".card__description");
-  const cardLikeBtn = cardElement.querySelector(".card__button");
 
-  cardLikeBtn.addEventListener("click", () => {
-    cardLikeBtn.classList.toggle("card__button-active");
-  });
-  const trashBtn = cardElement.querySelector(".card__trash");
-  trashBtn.addEventListener("click", () => {
-    cardElement.remove();
-  });
-  cardTitleEl.innerText = cardTitle;
-  const cardImageEl = cardElement.querySelector(".card__image");
-  cardImageEl.src = cardLink;
-  cardImageEl.alt = cardTitle;
-
-  cardImageEl.addEventListener("click", () => {
-    openPicImage.src = data.link;
-    openPicImage.alt = data.name;
-    openPicTitle.textContent = data.name;
-    openPopup(openPicModal);
-  });
-  return cardElement;
+function handleImageClick(data) {
+  openPicImage.src = data.link;
+  openPicImage.alt = data.name;
+  openPicTitle.textContent = data.name;
+  openPopup(openPicModal);
 }
 function clickOverlay() {
   modalEls.forEach((modalEl) => {
@@ -143,8 +125,23 @@ closeBtns.forEach((button) => {
 });
 
 initialCards.forEach((data) => {
-  const cardElement = getCardElement(data);
-  cardListEl.append(cardElement);
+  const card = new Card(data, "#card-template", handleImageClick);
+  cardListEl.append(card.getView());
 });
 
 clickOverlay();
+
+const settings = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save",
+  inactiveButtonClass: "modal__save_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+const editModal = document.querySelector("#profile-edit-modal");
+const addModal = document.querySelector("#profile-add-card-modal");
+const editFormValidator = new FormValidator(settings, editModal);
+const addFormValidator = new FormValidator(settings, addModal);
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
