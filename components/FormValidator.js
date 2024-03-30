@@ -20,9 +20,9 @@ export default class FormValidator {
 
   _checkInputValidity(inputEl) {
     if (!inputEl.validity.valid) {
-      return showInputError(inputEl);
+      return this._showInputError(inputEl);
     }
-    hideInputError(inputEl);
+    this._hideInputError(inputEl);
   }
   _hasInvalidInput() {
     return this._inputEls.some((inputEl) => {
@@ -35,8 +35,8 @@ export default class FormValidator {
       this._submitButton.disabled = true;
       return;
     }
-    submitButton.classList.remove(inactiveButtonClass);
-    submitButton.disabled = false;
+    this._submitButton.classList.remove(inactiveButtonClass);
+    this._submitButton.disabled = false;
   }
 
   _setEventListeners() {
@@ -44,7 +44,7 @@ export default class FormValidator {
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
-        this._checkInputValidity(inputEl);
+        this._checkInputValidity();
         this.toggleButtonstate();
       });
     });
