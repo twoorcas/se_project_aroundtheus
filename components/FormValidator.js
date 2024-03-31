@@ -6,6 +6,7 @@ export default class FormValidator {
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
+    this._errorList = settings.errorList;
   }
   _showInputError(inputEl) {
     this._errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
@@ -57,5 +58,16 @@ export default class FormValidator {
       e.preventDefault();
     });
     this._setEventListeners();
+  }
+  resetValidation() {
+    this._submitButton.classList.add(this._inactiveButtonClass);
+    this._submitButton.disabled = true;
+    this._inputEls.forEach((inputEl) => {
+      inputEl.classList.remove(this._inputErrorClass);
+    });
+    this._form.querySelectorAll(this._errorList).forEach((errorField) => {
+      errorField.textContent = "";
+      errorField.classList.remove(this._errorClass);
+    });
   }
 }

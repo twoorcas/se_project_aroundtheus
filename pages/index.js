@@ -28,6 +28,7 @@ const initialCards = [
 ];
 
 /*elements*/
+const formList = document.querySelectorAll(".modal__form");
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileEditModalCloseBtn = document.querySelector(
@@ -56,9 +57,12 @@ const openPicImage = openPicModal.querySelector("#open-pic-image");
 const openPicTitle = openPicModal.querySelector("#open-pic-title");
 const openPicCloseBtn = openPicModal.querySelector("#open-pic-modal-close-btn");
 const modalEls = [...document.querySelectorAll(".modal")];
-const addModalSubmitButton = addCardModal.querySelector(".modal__save");
+const addCardModalSubmitButton = addCardModal.querySelector(".modal__save");
 
-const editModalSubmitButton = profileEditModal.querySelector(".modal__save");
+const profileEditModalSubmitButton =
+  profileEditModal.querySelector(".modal__save");
+const addCardTitle = addCardTitleInput.value;
+const addCardImageLInk = addCardImageLinkInput.value;
 
 /*functions*/
 function handleClosePopup(modal) {
@@ -69,30 +73,23 @@ function handleOpenPopup(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", pressEsc);
 }
-function handleDisableSubmitButton(submitButton) {
-  submitButton.disabled = true;
-  submitButton.classList.add("modal__save_disabled");
-}
+
 function handleProfileSubmit(e) {
   e.preventDefault();
   profileName.innerText = profileTitleInput.value;
   profileDescription.innerText = profileDescriptionInput.value;
-  handleDisableSubmitButton(editModalSubmitButton);
   handleClosePopup(profileEditModal);
 }
+function creatCard(data) {
+  const cardElement = new Card(data, "#card-template", handleImageClick);
+  cardListEl.prepend(cardElement.getView());
+}
+
 function handleAddCardSubmit(e) {
   e.preventDefault();
-  const addCardTitle = addCardTitleInput.value;
-  const addCardImageLInk = addCardImageLinkInput.value;
-  const cardElement = new Card(
-    { name: addCardTitle, link: addCardImageLInk },
-    "#card-template",
-    handleImageClick
-  );
-  cardListEl.prepend(cardElement.getView());
-  handleDisableSubmitButton(addModalSubmitButton);
+  creatCard({ name: addCardTitle, link: addCardImageLInk });
   handleClosePopup(addCardModal);
-  handleResetValidation(addCardModal);
+  formValidators["add-card-form"].resetValidation();
   e.target.reset();
 }
 
@@ -119,23 +116,11 @@ function pressEsc(e) {
     handleClosePopup(openedPopup);
   }
 }
-function handleResetValidation(modal) {
-  const modalErrorMessages = modal.querySelectorAll(".modal__error");
-  const modalInputs = modal.querySelectorAll(".modal__input");
-  modalErrorMessages.forEach((message) => {
-    message.textContent = "";
-    message.classList.remove("modal__error_visible");
-    modalInputs.forEach((modalInput) => {
-      modalInput.classList.remove("modal__input_type_error");
-    });
-  });
-}
-/*event listeners*/
 // edit popup
 profileEditBtn.addEventListener("click", function () {
   profileTitleInput.value = profileName.innerText;
   profileDescriptionInput.value = profileDescription.innerText;
-  handleResetValidation(editModal);
+  formValidators["profile-edit-form"].resetValidation();
   handleOpenPopup(profileEditModal);
 });
 profileForm.addEventListener("submit", handleProfileSubmit);
@@ -149,9 +134,8 @@ closeBtns.forEach((button) => {
   button.addEventListener("click", () => handleClosePopup(popup));
 });
 /*render cards*/
-initialCards.forEach((data) => {
-  const card = new Card(data, "#card-template", handleImageClick);
-  cardListEl.append(card.getView());
+initialCards.reverse().forEach((data) => {
+  creatCard(data);
 });
 
 /*form validation*/
@@ -162,10 +146,15 @@ const settings = {
   inactiveButtonClass: "modal__save_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
+  errorList: ".modal__error",
 };
-const editModal = document.querySelector("#profile-edit-modal");
-const addModal = document.querySelector("#profile-add-card-modal");
-const editFormValidator = new FormValidator(settings, editModal);
-const addFormValidator = new FormValidator(settings, addModal);
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
+const formValidators = {};
+const enableValidation = (formList) => {
+  formList.forEach((form) => {
+    const formValidator = new FormValidator(settings, form);
+    formValidator.enableValidation();
+    formValidators[form.getAttribute("id")] = formValidator;
+    return formValidators;
+  });
+};
+enableValidation(formList);
