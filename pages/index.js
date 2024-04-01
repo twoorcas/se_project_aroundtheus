@@ -61,8 +61,6 @@ const addCardModalSubmitButton = addCardModal.querySelector(".modal__save");
 
 const profileEditModalSubmitButton =
   profileEditModal.querySelector(".modal__save");
-const addCardTitle = addCardTitleInput.value;
-const addCardImageLInk = addCardImageLinkInput.value;
 
 /*functions*/
 function handleClosePopup(modal) {
@@ -87,7 +85,10 @@ function creatCard(data) {
 
 function handleAddCardSubmit(e) {
   e.preventDefault();
-  creatCard({ name: addCardTitle, link: addCardImageLInk });
+  creatCard({
+    name: addCardTitleInput.value,
+    link: addCardImageLinkInput.value,
+  });
   handleClosePopup(addCardModal);
   formValidators["add-card-form"].resetValidation();
   e.target.reset();
