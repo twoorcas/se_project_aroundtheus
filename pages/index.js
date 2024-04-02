@@ -80,15 +80,16 @@ function handleProfileSubmit(e) {
 }
 function creatCard(data) {
   const cardElement = new Card(data, "#card-template", handleImageClick);
-  cardListEl.prepend(cardElement.getView());
+  return cardElement.getView();
 }
 
 function handleAddCardSubmit(e) {
   e.preventDefault();
-  creatCard({
+  const card = new creatCard({
     name: addCardTitleInput.value,
     link: addCardImageLinkInput.value,
   });
+  cardListEl.prepend(card);
   handleClosePopup(addCardModal);
   formValidators["add-card-form"].resetValidation();
   e.target.reset();
@@ -135,8 +136,9 @@ closeBtns.forEach((button) => {
   button.addEventListener("click", () => handleClosePopup(popup));
 });
 /*render cards*/
-initialCards.reverse().forEach((data) => {
-  creatCard(data);
+initialCards.forEach((data) => {
+  const card = new creatCard(data);
+  cardListEl.append(card);
 });
 
 /*form validation*/

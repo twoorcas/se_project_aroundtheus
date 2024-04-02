@@ -60,14 +60,13 @@ export default class FormValidator {
     this._setEventListeners();
   }
   resetValidation() {
-    this._submitButton.classList.add(this._inactiveButtonClass);
-    this._submitButton.disabled = true;
+    toggleButtonstate();
     this._inputEls.forEach((inputEl) => {
-      inputEl.classList.remove(this._inputErrorClass);
+      this._hideInputError(inputEl);
     });
-    this._form.querySelectorAll(this._errorList).forEach((errorField) => {
-      errorField.textContent = "";
-      errorField.classList.remove(this._errorClass);
-    });
+    // this._form.querySelectorAll(this._errorList).forEach((errorField) => {
+    //   errorField.textContent = "";
+    //   errorField.classList.remove(this._errorClass);
+    // });
   }
 }
