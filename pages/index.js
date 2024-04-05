@@ -91,7 +91,7 @@ function handleAddCardSubmit(e) {
   });
   cardListEl.prepend(card);
   handleClosePopup(addCardModal);
-  formValidators["add-card-form"].toggleButtonstate();
+  formValidators["add-card-form"].disableSubmitButton();
   e.target.reset();
 }
 
