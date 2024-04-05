@@ -60,13 +60,9 @@ export default class FormValidator {
     this._setEventListeners();
   }
   resetValidation() {
-    toggleButtonstate();
     this._inputEls.forEach((inputEl) => {
       this._hideInputError(inputEl);
     });
-    // this._form.querySelectorAll(this._errorList).forEach((errorField) => {
-    //   errorField.textContent = "";
-    //   errorField.classList.remove(this._errorClass);
-    // });
+    this.toggleButtonstate;
   }
 }
