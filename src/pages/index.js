@@ -24,9 +24,8 @@ import {
 import UserInfo from "../components/UserInfo.js";
 
 /*test*/
-console.log(document.querySelector(jobSelector).textContent);
-console.log(addCardPopupSelector);
-console.log(document.querySelector(addCardPopupSelector));
+console.log();
+
 // Needed
 function handleProfileSubmit(e) {
   e.preventDefault();
@@ -66,9 +65,10 @@ const enableValidation = (formList) => {
 //New
 const UserProfile = new UserInfo({ nameSelector, jobSelector });
 const addCardPopup = new PopupWithForm(
-  (addCardPopupSelector, handleAddCardSubmit)
+  addCardPopupSelector,
+  handleAddCardSubmit
 );
-const editPopup = new PopupWithForm((editPopupSelector, handleProfileSubmit));
+const editPopup = new PopupWithForm(editPopupSelector, handleProfileSubmit);
 const editPopupInputObj = editPopup._getInputValues;
 const addCardPopupInputObj = addCardPopup._getInputValues;
 const newCard = new Card(
@@ -91,6 +91,7 @@ const cardList = new Section(
   cardWrapperSelector
 );
 
+//Needed
 cardList.renderItems(initialCards);
 cardList.addItem(newCard);
 enableValidation(formList);
