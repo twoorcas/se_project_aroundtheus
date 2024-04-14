@@ -49,3 +49,5 @@ export const addCardInputTitleId = "modal-image-title-input";
 export const addCardInputLinkId = "modal-link-input";
 export const addCardFormId = "add-card-form";
 export const cardTempSelector = "#card-template";
+export const profileEditBtn = document.querySelector("#profile-edit-button");
+export const addCardBtn = document.querySelector(".profile__add-button");

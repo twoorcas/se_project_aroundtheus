@@ -1,6 +1,6 @@
 import { ESC_KEYCODE } from "../utils/constants";
 export default class Popup {
-  constructor({ popupSelector }) {
+  constructor(popupSelector) {
     this._popupSelector = popupSelector;
     this._popupElement = document.querySelector(popupSelector);
   }
@@ -20,16 +20,18 @@ setEventListeners() that adds a click event listener to the close icon of the po
       this.close();
     }
   }
-  _clickOverlay() {
+  _clickOverlay(e) {
     if (e.target === this._popupElement) {
       this.close();
     }
   }
   setEventListeners() {
     this._popupElement.addEventListener("click", (e) => {
-      this._clickOverlay();
+      this._clickOverlay(e);
     });
     this._closeBtn = this._popupElement.querySelector(".modal__close");
-    this._closeBtn.addEventListener("click", () => this.close());
+    this._closeBtn.addEventListener("click", () => {
+      this.close();
+    });
   }
 }

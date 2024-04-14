@@ -6,6 +6,8 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import {
   settings,
+  profileEditBtn,
+  addCardBtn,
   formList,
   addCardInputTitleId,
   addCardInputLinkId,
@@ -23,9 +25,6 @@ import {
 } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 
-/*test*/
-console.log();
-
 // Needed
 function handleProfileSubmit(e) {
   e.preventDefault();
@@ -37,7 +36,7 @@ function handleProfileSubmit(e) {
 }
 
 // Needed
-function handleAddCardSubmit(e) {
+function handleAddCardSubmit() {
   addCardPopup.close();
   formValidators[addCardFormId].disableSubmitButton();
   e.target.reset();
@@ -85,12 +84,19 @@ const cardList = new Section(
     items: initialCards,
     renderer: (item) => {
       const cardElement = new Card(item, cardTempSelector, handleImageClick);
-      return cardElement.getView();
+      const cardItem = cardElement.getView();
+      const cardWrapper = document.querySelector(cardWrapperSelector);
+      cardWrapper.append(cardItem);
     },
   },
   cardWrapperSelector
 );
-
+addCardBtn.addEventListener("click", () => {
+  addCardPopup.open();
+});
+profileEditBtn.addEventListener("click", () => {
+  editPopup.open();
+});
 //Needed
 cardList.renderItems(initialCards);
 cardList.addItem(newCard);
