@@ -4,7 +4,10 @@ export default class UserInfo {
     this._jobEl = document.querySelector(jobSelector);
   }
   getUserInfo() {
-    const data = { name: this._nameEl.innerText, job: this._jobEl.innerText };
+    const data = {
+      title: this._nameEl.innerText,
+      description: this._jobEl.innerText,
+    };
     return data;
   }
 

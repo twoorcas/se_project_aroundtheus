@@ -30,39 +30,35 @@ import UserInfo from "../components/UserInfo.js";
 
 // handler
 function handleAssignEditInput() {
-  const userProfileData = UserProfile.getUserInfo();
-  editInputTitleEl.value = userProfileData.name;
-  editInputDescriptionEl.value = userProfileData.job;
+  const userProfileData = userProfile.getUserInfo();
+  editPopup.setInputValues(userProfileData);
 }
 
 function handleProfileSubmit(inputObj) {
-  UserProfile.setUserInfo(
+  userProfile.setUserInfo(
     inputObj[editInputTitleId],
     inputObj[editInputDescriptionId]
   );
   editPopup.close();
 }
-
+function creatCard(item) {
+  const cardElement = new Card(item, cardTempSelector, handleImageClick);
+  const cardItem = cardElement.getView();
+  return cardItem;
+}
 function handleAddCardSubmit(inputObj) {
   addCardPopup.close();
-  const newCard = new Card(
-    {
-      name: inputObj[addCardInputTitleId],
-      link: inputObj[addCardInputLinkId],
-    },
-    cardTempSelector,
-    handleImageClick
-  );
-  const creatCard = newCard.getView();
-  cardList.addItem(creatCard);
+  const newCard = creatCard({
+    name: inputObj[addCardInputTitleId],
+    link: inputObj[addCardInputLinkId],
+  });
+  cardList.addItem(newCard);
   formValidators[addCardFormId].disableSubmitButton();
   addCardPopup.reset();
 }
 
 function handleImageClick({ name, link }) {
-  const imageInfo = new PopupWithImage(picPopupSelector, { name, link });
-  imageInfo.open();
-  imageInfo.setEventListeners();
+  imageInfo.open({ name, link });
 }
 
 /*form validation*/
@@ -77,7 +73,8 @@ const enableValidation = (formList) => {
 };
 
 //elements
-const UserProfile = new UserInfo({ nameSelector, jobSelector });
+const imageInfo = new PopupWithImage(picPopupSelector);
+const userProfile = new UserInfo({ nameSelector, jobSelector });
 const addCardPopup = new PopupWithForm(
   addCardPopupSelector,
   handleAddCardSubmit
@@ -87,8 +84,7 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const cardElement = new Card(item, cardTempSelector, handleImageClick);
-      const cardItem = cardElement.getView();
+      const cardItem = creatCard(item);
       cardList.addInitialItem(cardItem);
     },
   },
@@ -108,3 +104,4 @@ cardList.renderItems(initialCards);
 enableValidation(formList);
 addCardPopup.setEventListeners();
 editPopup.setEventListeners();
+imageInfo.setEventListeners();
