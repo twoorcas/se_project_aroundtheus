@@ -6,6 +6,10 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import {
   settings,
+  formValidators,
+  picPopupSelector,
+  editInputDescriptionEl,
+  editInputTitleEl,
   profileEditBtn,
   addCardBtn,
   formList,
@@ -19,38 +23,49 @@ import {
   editPopupSelector,
   nameSelector,
   jobSelector,
-  ESC_KEYCODE,
   initialCards,
   cardWrapperSelector,
 } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 
-// Needed
-function handleProfileSubmit(e) {
-  e.preventDefault();
-  UserProfile.setUserInfo({
-    name: editPopupInputObj[editInputTitleId],
-    job: editPopupInputObj[editInputDescriptionId],
-  });
+// handler
+function handleAssignEditInput() {
+  const userProfileData = UserProfile.getUserInfo();
+  editInputTitleEl.value = userProfileData.name;
+  editInputDescriptionEl.value = userProfileData.job;
+}
+
+function handleProfileSubmit(inputObj) {
+  UserProfile.setUserInfo(
+    inputObj[editInputTitleId],
+    inputObj[editInputDescriptionId]
+  );
   editPopup.close();
 }
 
-// Needed
-function handleAddCardSubmit() {
+function handleAddCardSubmit(inputObj) {
   addCardPopup.close();
+  const newCard = new Card(
+    {
+      name: inputObj[addCardInputTitleId],
+      link: inputObj[addCardInputLinkId],
+    },
+    cardTempSelector,
+    handleImageClick
+  );
+  const creatCard = newCard.getView();
+  cardList.addItem(creatCard);
   formValidators[addCardFormId].disableSubmitButton();
-  e.target.reset();
+  addCardPopup.reset();
 }
 
-// Needed
 function handleImageClick({ name, link }) {
-  const imageInfo = new PopupWithImage({ name, link });
+  const imageInfo = new PopupWithImage(picPopupSelector, { name, link });
   imageInfo.open();
   imageInfo.setEventListeners();
 }
 
 /*form validation*/
-const formValidators = {};
 const enableValidation = (formList) => {
   formList.forEach((form) => {
     const formValidator = new FormValidator(settings, form);
@@ -61,48 +76,35 @@ const enableValidation = (formList) => {
   });
 };
 
-//New
+//elements
 const UserProfile = new UserInfo({ nameSelector, jobSelector });
 const addCardPopup = new PopupWithForm(
   addCardPopupSelector,
   handleAddCardSubmit
 );
 const editPopup = new PopupWithForm(editPopupSelector, handleProfileSubmit);
-const editPopupInputObj = editPopup._getInputValues;
-const addCardPopupInputObj = addCardPopup._getInputValues;
-const newCard = new Card(
-  {
-    name: addCardPopupInputObj[addCardInputTitleId],
-    link: addCardPopupInputObj[addCardInputLinkId],
-  },
-  cardTempSelector,
-  handleImageClick
-);
-
 const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
       const cardElement = new Card(item, cardTempSelector, handleImageClick);
       const cardItem = cardElement.getView();
-      const cardWrapper = document.querySelector(cardWrapperSelector);
-      cardWrapper.append(cardItem);
+      cardList.addInitialItem(cardItem);
     },
   },
   cardWrapperSelector
 );
+
+//function calls and event listeners
 addCardBtn.addEventListener("click", () => {
   addCardPopup.open();
 });
 profileEditBtn.addEventListener("click", () => {
   editPopup.open();
+  handleAssignEditInput();
 });
-//Needed
+
 cardList.renderItems(initialCards);
-cardList.addItem(newCard);
 enableValidation(formList);
 addCardPopup.setEventListeners();
 editPopup.setEventListeners();
-
-//render cards on page load done.
-//An instance of the Section class is created for each container in which elements are rendered.

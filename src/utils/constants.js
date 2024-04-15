@@ -1,5 +1,5 @@
 /**The index.js file must contain only the code for selecting elements, creating class instances, and adding specific event listeners. Other code, such as the array of initial cards and any configuration objects you are using, should be moved to a separate utils/constants.js file and imported into index.js */
-export const ESC_KEYCODE = 27;
+
 export const initialCards = [
   {
     name: "Yosemite Valley",
@@ -27,8 +27,7 @@ export const initialCards = [
   },
 ];
 export const cardWrapperSelector = ".cards__list";
-// export const openPicImage = openPicModal.querySelector("#open-pic-image");
-// export const openPicTitle = openPicModal.querySelector("#open-pic-title");
+
 export const formList = document.querySelectorAll(".modal__form");
 export const settings = {
   formSelector: ".modal__form",
@@ -44,10 +43,16 @@ export const jobSelector = "#js-profile-description";
 export const addCardPopupSelector = "#profile-add-card-modal";
 export const editPopupSelector = "#profile-edit-modal";
 export const editInputTitleId = "modal-title-input";
+export const editInputTitleEl = document.getElementById(editInputTitleId);
 export const editInputDescriptionId = "modal-description-input";
+export const editInputDescriptionEl = document.getElementById(
+  editInputDescriptionId
+);
 export const addCardInputTitleId = "modal-image-title-input";
 export const addCardInputLinkId = "modal-link-input";
 export const addCardFormId = "add-card-form";
 export const cardTempSelector = "#card-template";
 export const profileEditBtn = document.querySelector("#profile-edit-button");
 export const addCardBtn = document.querySelector(".profile__add-button");
+export const picPopupSelector = "#open-pic-modal";
+export const formValidators = {};

@@ -8,13 +8,12 @@ export default class Section {
   addItem(element) {
     this._container.prepend(element);
   }
-  //This method should be called when adding an individual card to the DOM.
-  //takes a DOM element and adds it to the container
+  addInitialItem(element) {
+    this._container.append(element);
+  }
   renderItems(items) {
     items.forEach((item) => {
       this._renderer(item);
     });
-    //This method should be called once on page load.
   }
 }
-// to add elements to the DOM

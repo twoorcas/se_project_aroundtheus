@@ -1,19 +1,15 @@
 export default class UserInfo {
   constructor({ nameSelector, jobSelector }) {
-    this._name = document.querySelector(nameSelector).textContent;
-    this._job = document.querySelector(jobSelector).textContent;
+    this._nameEl = document.querySelector(nameSelector);
+    this._jobEl = document.querySelector(jobSelector);
   }
-
   getUserInfo() {
-    const data = { name: this._name, job: this._job };
+    const data = { name: this._nameEl.innerText, job: this._jobEl.innerText };
     return data;
   }
-  // returns an object containing information about the user.
-  //handy for cases when it's necessary to display the user data in the open form. PopupWithForm editprofile
 
-  setUserInfo({ name, job }) {
-    this._name.textContent = name;
-    this._job.textContent = job;
-  } //takes new user data and adds it to the page.  called after successful submission of PopupWithForm editprofile.
+  setUserInfo(name, job) {
+    this._nameEl.innerText = name;
+    this._jobEl.innerText = job;
+  }
 }
-//const userInfo=new UserInfo()
