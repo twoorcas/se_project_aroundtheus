@@ -8,8 +8,6 @@ import {
   settings,
   formValidators,
   picPopupSelector,
-  editInputDescriptionEl,
-  editInputTitleEl,
   profileEditBtn,
   addCardBtn,
   formList,
