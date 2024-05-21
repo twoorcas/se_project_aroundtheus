@@ -56,3 +56,12 @@ export const profileEditBtn = document.querySelector("#profile-edit-button");
 export const addCardBtn = document.querySelector(".profile__add-button");
 export const picPopupSelector = "#open-pic-modal";
 export const formValidators = {};
+export const deleteCardPopup = document.querySelector("#delete-card-modal");
+export const trashBtnArr = document.querySelectorAll(".card__trash");
+export const avatarEditBtn = document.querySelector(
+  "#profile-avatar-edit-button"
+);
+export const avatarEditModal = document.querySelector(
+  "#change-profile-pic-modal"
+);
+export const avatarEditSelector = "#change-profile-pic-modal";

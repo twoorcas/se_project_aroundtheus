@@ -30,8 +30,9 @@ export default class Card {
     this._likeBtn.classList.toggle("card__button-active");
   }
   _handleTrashBtn() {
-    this._cardElement.remove();
-    this._cardElement = null;
+    // this._cardElement.remove();
+    // this._cardElement = null;
+    // this._deleteCardModal = document.querySelector("#delete-card-modal");
   }
 
   getView() {

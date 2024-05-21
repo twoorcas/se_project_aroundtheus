@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,12 +18,18 @@
     <main class="content">
       <section class="profile page__profile">
         <div class="profile__people">
+          <div class="profile__avatar">
           <img
             src="<%= require('./images/jacques-cousteau.jpg')%>"
             alt="Avatar"
             class="profile__photo"
           />
-
+          <button
+          class="profile__avatar-edit-button button"
+          type="button"
+          id="profile-avatar-edit-button"
+        ></button>
+      </div>
           <div class="profile__info">
             <div class="profile__info-accent">
               <h1 class="profile__name" id="js-profile-name">
@@ -150,6 +157,62 @@
         ></button>
         <img src="" alt="" class="modal__open-pic-image" id="open-pic-image" />
         <p class="modal__open-pic-title" id="open-pic-title"></p>
+      </div>
+    </div>
+    <!-- delete card modal -->
+    <div class="modal delete-card modal__delete-card" id="delete-card-modal">
+      <div class="modal__container modal__delete-card-container">
+        <p class="modal__delete-card-title modal__heading" id="delete-card-title">
+          Are you sure?
+        </p>
+        <button
+          class="modal__save button modal__save_disabled"
+          disabled
+          type="submit"
+        >
+          Yes
+        </button>
+        <button
+          class="modal__close button"
+          id="delete-card-modal-close-btn"
+        ></button>
+      </div>
+    </div>
+    <!-- change profile pic modal -->
+    <div
+      class="modal change-profile-pic modal__change-profile-pic"
+      id="change-profile-pic-modal"
+    >
+      <div class="modal__container modal__change-profile-pic-container">
+        <p
+          class="modal__change-profile-pic-title modal__heading"
+          id="change-profile-pic-title"
+        >
+          Change profile picture
+        </p>
+        <form class="modal__form" id="change-profile-pic-form">
+          <label class="modal__label">
+            <input
+            type="url"
+              name="link"
+              class="modal__input"
+              id="change-profile-pic-input"
+              placeholder="Link"
+              required
+            />
+            <span class="modal__error" id="modal-title-input-error"></span>
+          </label>
+        <button
+          class="modal__save button modal__save_disabled"
+          disabled
+          type="submit"
+        >
+          Save
+        </button>
+        <button
+          class="modal__close button"
+          id="delete-card-modal-close-btn"
+        ></button>
       </div>
     </div>
     <!-- template -->
