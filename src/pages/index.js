@@ -1,5 +1,5 @@
 import Card from "../components/Card.js";
-import Api from "../components/Api.js";
+import Api from "../utils/Api.js";
 import FormValidator from "../components/FormValidator.js";
 import "./index.css";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -26,10 +26,21 @@ import {
   editPopupSelector,
   nameSelector,
   jobSelector,
-  initialCards,
   cardWrapperSelector,
 } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
+
+// elements
+let cardList;
+const imageInfo = new PopupWithImage(picPopupSelector);
+const userProfile = new UserInfo({ nameSelector, jobSelector });
+const addCardPopup = new PopupWithForm(
+  addCardPopupSelector,
+  handleAddCardSubmit
+);
+const editPopup = new PopupWithForm(editPopupSelector, handleProfileSubmit);
+const avatarEditPopup = new PopupWithForm(avatarEditSelector);
+// handle????
 
 // handler
 function handleAssignEditInput() {
@@ -59,9 +70,12 @@ function creatCard(item) {
 }
 function handleAddCardSubmit(inputObj) {
   addCardPopup.close();
+  const cardName = inputObj[addCardInputTitleId];
+  const cardLink = inputObj[addCardInputLinkId];
+  api.addNewCard({ cardElementName: cardName, cardElementLink: cardLink });
   const newCard = creatCard({
-    name: inputObj[addCardInputTitleId],
-    link: inputObj[addCardInputLinkId],
+    name: cardName,
+    link: cardLink,
   });
   cardList.addItem(newCard);
   formValidators[addCardFormId].disableSubmitButton();
@@ -92,24 +106,27 @@ const api = new Api({
   },
 });
 
-// get initial user info from server
-// function loadUserInfo() {
-//   api.getUserInfo().then((res) => {
-//     const name = res.name;
-//     const job = res.about;
-//     userProfile.setUserInfo(name, job);
-//   });
-// }
-// loadUserInfo();
-
-// get initial cards from server
-// api.getInitialCards().then((res) => {
-//   console.log(res);
-// });
-
 // promise.all
 
-api.getCardAndUserInfo().then(([serverCardList, serverUserInfo]) => {});
+api.getCardAndUserInfo().then(([serverCardList, serverUserInfo]) => {
+  // load cards from server
+  console.log(serverCardList);
+  cardList = new Section(
+    {
+      items: serverCardList,
+      renderer: (item) => {
+        const cardItem = creatCard(item);
+        cardList.addInitialItem(cardItem);
+      },
+    },
+    cardWrapperSelector
+  );
+  console.log(cardList);
+  // load user bio from server
+  const name = serverUserInfo.name;
+  const job = serverUserInfo.about;
+  userProfile.setUserInfo(name, job);
+});
 
 // api.getUserInfo().then((res) => {
 //   console.log(res);
@@ -124,11 +141,6 @@ api.getCardAndUserInfo().then(([serverCardList, serverUserInfo]) => {});
 // });
 
 // api.deleteCard({ _id: "664993188bacc8001af143f3" });
-api.addNewCard({
-  cardElementName: "Bald Mountains",
-  cardElementLink:
-    "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-});
 
 // api.updateProfileImage().then((res) => {
 //   console.log(res);
@@ -137,27 +149,16 @@ api.addNewCard({
 //   console.log(res);
 // });
 
-// elements
-const imageInfo = new PopupWithImage(picPopupSelector);
-const userProfile = new UserInfo({ nameSelector, jobSelector });
-const addCardPopup = new PopupWithForm(
-  addCardPopupSelector,
-  handleAddCardSubmit
-);
-const editPopup = new PopupWithForm(editPopupSelector, handleProfileSubmit);
-const avatarEditPopup = new PopupWithForm(avatarEditSelector);
-// handle????
-
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardItem = creatCard(item);
-      cardList.addInitialItem(cardItem);
-    },
-  },
-  cardWrapperSelector
-);
+// const cardList = new Section(
+//   {
+//     items: initialCards,
+//     renderer: (item) => {
+//       const cardItem = creatCard(item);
+//       cardList.addInitialItem(cardItem);
+//     },
+//   },
+//   cardWrapperSelector
+// );
 
 // function calls and event listeners
 addCardBtn.addEventListener("click", () => {

@@ -11,24 +11,20 @@ export default class Api {
 
     return Promise.reject(`Error: ${res.status}`);
   }
-  catchErr(err) {
-    console.error(err);
-  }
+  // catchErr(err) {
+  //   console.error(err);
+  // }
   getInitialCards() {
     /* name and link properties, needed foe displaying each card. each card has an ID, stored in the _id property. */
     return fetch(`${this.baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then(this.getResult)
-      .catch(this.catchErr);
+    }).then(this.getResult);
   }
 
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then(this.getResult)
-      .catch(this.catchErr);
+    }).then(this.getResult);
   }
   updateUserInfo({ editFormNameInput, editFormAboutInput }) {
     fetch(`${this.baseUrl}/users/me`, {
@@ -38,9 +34,7 @@ export default class Api {
         name: editFormNameInput,
         about: editFormAboutInput,
       }),
-    })
-      .then(this.getResult)
-      .catch(this.catchErr);
+    }).then(this.getResult);
   }
   addNewCard({ cardElementName, cardElementLink }) {
     fetch(`${this.baseUrl}/cards`, {
@@ -50,20 +44,15 @@ export default class Api {
         name: cardElementName,
         link: cardElementLink,
       }),
-    })
-      .then(this.getResult)
-      .catch(this.catchErr);
+    }).then(this.getResult);
   }
   deleteCard({ _id }) {
     fetch(`${this.baseUrl}/cards/${_id}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this.getResult)
+    }).then(this.getResult);
 
-      //response is {"message": "This post has been deleted"}
-
-      .catch(this.catchErr);
+    //response is {"message": "This post has been deleted"}
   }
   // toggleLikeBtn(cardId) {
   //   fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
@@ -92,9 +81,7 @@ export default class Api {
         avatar: link,
       }),
       // In the case that anything other than a link is sent, the server will return an error.
-    })
-      .then(this.getResult)
-      .catch(this.catchErr);
+    }).then(this.getResult);
   }
   getCardAndUserInfo() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
