@@ -1,33 +1,6 @@
 /**The index.js file must contain only the code for selecting elements, creating class instances, and adding specific event listeners. Other code, such as the array of initial cards and any configuration objects you are using, should be moved to a separate utils/constants.js file and imported into index.js */
 
-export const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
 export const cardWrapperSelector = ".cards__list";
-
 export const formList = document.querySelectorAll(".modal__form");
 export const settings = {
   formSelector: ".modal__form",
@@ -65,3 +38,8 @@ export const avatarEditModal = document.querySelector(
   "#change-profile-pic-modal"
 );
 export const avatarEditSelector = "#change-profile-pic-modal";
+export const deleteCardSelector = "#delete-card-modal";
+export const deleteCardEl = document.querySelector("#delete-card-modal");
+export const deleteCardSubmitBtn = document.querySelector(
+  "#delete-card-submit-btn"
+);

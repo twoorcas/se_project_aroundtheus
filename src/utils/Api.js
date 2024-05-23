@@ -15,7 +15,6 @@ export default class Api {
   //   console.error(err);
   // }
   getInitialCards() {
-    /* name and link properties, needed foe displaying each card. each card has an ID, stored in the _id property. */
     return fetch(`${this.baseUrl}/cards`, {
       headers: this._headers,
     }).then(this.getResult);
@@ -46,11 +45,11 @@ export default class Api {
       }),
     }).then(this.getResult);
   }
-  deleteCard({ _id }) {
-    fetch(`${this.baseUrl}/cards/${_id}`, {
+  deleteCard(_id) {
+    return fetch(`${this.baseUrl}/cards/${_id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this.getResult);
+    }).then((res) => this.getResult(res));
 
     //response is {"message": "This post has been deleted"}
   }

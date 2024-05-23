@@ -2,14 +2,16 @@ import Card from "../components/Card.js";
 import Api from "../utils/Api.js";
 import FormValidator from "../components/FormValidator.js";
 import "./index.css";
+import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import {
   avatarEditBtn,
+  deleteCardEl,
+  deleteCardSubmitBtn,
+  deleteCardSelector,
   avatarEditSelector,
-  trashBtnArr,
-  deleteCardPopup,
   settings,
   formValidators,
   picPopupSelector,
@@ -40,9 +42,17 @@ const addCardPopup = new PopupWithForm(
 );
 const editPopup = new PopupWithForm(editPopupSelector, handleProfileSubmit);
 const avatarEditPopup = new PopupWithForm(avatarEditSelector);
+const deleteCardPopup = new Popup(deleteCardSelector);
 // handle????
 
 // handler
+// function handleDeleteSubmit(card) {
+//   // const cardId = deleteCardEl.getAttribute("_id");
+//   card.deleteCardView();
+//   api.deleteCard(card.id).then((res) => {
+//     console.log(res);
+//   });
+// }
 function handleAssignEditInput() {
   const userProfileData = userProfile.getUserInfo();
   editPopup.setInputValues(userProfileData);
@@ -64,10 +74,16 @@ function handleProfileSubmit(inputObj) {
   editPopup.close();
 }
 function creatCard(item) {
-  const cardElement = new Card(item, cardTempSelector, handleImageClick);
+  const cardElement = new Card(
+    item,
+    cardTempSelector,
+    handleImageClick,
+    deleteCardSelector
+  );
   const cardItem = cardElement.getView();
   return cardItem;
 }
+
 function handleAddCardSubmit(inputObj) {
   addCardPopup.close();
   const cardName = inputObj[addCardInputTitleId];
@@ -107,10 +123,8 @@ const api = new Api({
 });
 
 // promise.all
-
 api.getCardAndUserInfo().then(([serverCardList, serverUserInfo]) => {
   // load cards from server
-  console.log(serverCardList);
   cardList = new Section(
     {
       items: serverCardList,
@@ -121,57 +135,29 @@ api.getCardAndUserInfo().then(([serverCardList, serverUserInfo]) => {
     },
     cardWrapperSelector
   );
-  console.log(cardList);
+  // add initial cards to DOM
+  cardList.renderItems(serverCardList);
   // load user bio from server
   const name = serverUserInfo.name;
   const job = serverUserInfo.about;
+  // add user bio to DOM
   userProfile.setUserInfo(name, job);
 });
-
-// api.getUserInfo().then((res) => {
-//   console.log(res);
-// });
-
-// api.updateUserInfo({
-//   editFormNameInput: "Jacques Cousteau",
-//   editFormAboutInput: "Explorer",
-// });
-// .then((res) => {
-//   console.log(res);
-// });
-
-// api.deleteCard({ _id: "664993188bacc8001af143f3" });
 
 // api.updateProfileImage().then((res) => {
 //   console.log(res);
 // });
-// api.renderCards().then((res) => {
-//   console.log(res);
-// });
-
-// const cardList = new Section(
-//   {
-//     items: initialCards,
-//     renderer: (item) => {
-//       const cardItem = creatCard(item);
-//       cardList.addInitialItem(cardItem);
-//     },
-//   },
-//   cardWrapperSelector
-// );
 
 // function calls and event listeners
+deleteCardSubmitBtn.addEventListener("click", () => {
+  deleteCardPopup.close();
+});
 addCardBtn.addEventListener("click", () => {
   addCardPopup.open();
 });
 profileEditBtn.addEventListener("click", () => {
   editPopup.open();
   handleAssignEditInput();
-});
-trashBtnArr.forEach((trashBtn) => {
-  trashBtn.addEventListener("click", () => {
-    deleteCardPopup.open();
-  });
 });
 avatarEditBtn.addEventListener("click", () => {});
 //?????
@@ -182,3 +168,4 @@ addCardPopup.setEventListeners();
 editPopup.setEventListeners();
 imageInfo.setEventListeners();
 avatarEditPopup.setEventListeners();
+deleteCardPopup.setEventListeners();
