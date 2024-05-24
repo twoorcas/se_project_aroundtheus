@@ -26,7 +26,7 @@ export default class Api {
     }).then(this.getResult);
   }
   updateUserInfo({ editFormNameInput, editFormAboutInput }) {
-    fetch(`${this.baseUrl}/users/me`, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -36,7 +36,7 @@ export default class Api {
     }).then(this.getResult);
   }
   addNewCard({ cardElementName, cardElementLink }) {
-    fetch(`${this.baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
@@ -66,7 +66,7 @@ export default class Api {
     }).then(this.getResult);
   }
   updateProfileImage(link) {
-    fetch(`${this.baseUrl}/users/me/avatar`, {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({

@@ -8,9 +8,12 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import {
   avatarEditBtn,
+  saveBtns,
+  avatarFormId,
   avatarSelector,
   avatarImg,
   avatarLinkInputId,
+  profileEditFormId,
   deleteCardEl,
   deleteCardSubmitBtn,
   deleteCardSelector,
@@ -49,10 +52,10 @@ const avatarEditPopup = new PopupWithForm(
   avatarEditSelector,
   handleAvatarSubmit
 );
-const deleteCardPopup = new PopupWithConfirmation(
-  deleteCardSelector,
-  handleDeleteSubmit
-);
+// const deleteCardPopup = new PopupWithConfirmation(
+//   deleteCardSelector,
+//   handleDeleteSubmit
+// );
 
 // api
 const api = new Api({
@@ -93,24 +96,33 @@ function handleAssignEditInput() {
   const userProfileData = userProfile.getUserInfo();
   editPopup.setInputValues(userProfileData);
 }
+
 function handleAvatarSubmit(inputObj) {
+  avatarEditPopup.showUploadingState();
   const avatarLink = inputObj[avatarLinkInputId];
-  api.updateProfileImage(avatarLink);
+  api.updateProfileImage(avatarLink).then(avatarEditPopup.showUploaded());
   avatarImg.src = avatarLink;
   avatarEditPopup.close();
+  formValidators[avatarFormId].disableSubmitButton();
+  avatarEditPopup.reset();
 }
 
 function handleProfileSubmit(inputObj) {
   const nameEl = inputObj[editInputTitleId];
   const jobEl = inputObj[editInputDescriptionId];
-  api.updateUserInfo({
-    editFormNameInput: nameEl,
-    editFormAboutInput: jobEl,
-  });
+  editPopup.showUploadingState();
+  api
+    .updateUserInfo({
+      editFormNameInput: nameEl,
+      editFormAboutInput: jobEl,
+    })
+    .then(editPopup.showUploaded());
   // sent inputs to server
   userProfile.setUserInfo(nameEl, jobEl);
   // get userinfo from server and apply to profile
   editPopup.close();
+  formValidators[profileEditFormId].disableSubmitButton();
+  editPopup.reset();
 }
 function creatCard(item) {
   const cardElement = new Card(
@@ -127,7 +139,10 @@ function handleAddCardSubmit(inputObj) {
   addCardPopup.close();
   const cardName = inputObj[addCardInputTitleId];
   const cardLink = inputObj[addCardInputLinkId];
-  api.addNewCard({ cardElementName: cardName, cardElementLink: cardLink });
+  addCardPopup.showUploadingState();
+  api
+    .addNewCard({ cardElementName: cardName, cardElementLink: cardLink })
+    .then(addCardPopup.showUploaded());
   const newCard = creatCard({
     name: cardName,
     link: cardLink,
@@ -140,19 +155,25 @@ function handleAddCardSubmit(inputObj) {
 function handleImageClick({ name, link }) {
   imageInfo.open({ name, link });
 }
+
 function handleDeleteClick(card) {
   // open popup
+  const deleteCardPopup = new PopupWithConfirmation(
+    deleteCardSelector,
+    handleDeleteSubmit,
+    card
+  );
+  deleteCardPopup.setEventListeners();
   deleteCardPopup.open();
-  // set del action function
-  deleteCardSubmitBtn.addEventListener("click", () => {
-    deleteCardPopup.setDelAction(handleDeleteSubmit(card));
-  });
+  deleteCardPopup.setDelEventListener();
 }
-function handleDeleteSubmit(card) {
-  card.deleteCardView();
+function handleDeleteSubmit() {
+  card.deleteCard();
   console.log(card.id);
-  api.deleteCard(card.id);
+  // api.deleteCard(card.id).then(popup.close());
+  // deleteCardPopup.close();
 }
+
 // form validation
 const enableValidation = (formList) => {
   formList.forEach((form) => {
@@ -165,9 +186,7 @@ const enableValidation = (formList) => {
 };
 
 // function calls and event listeners
-deleteCardSubmitBtn.addEventListener("click", () => {
-  deleteCardPopup.close();
-});
+
 addCardBtn.addEventListener("click", () => {
   addCardPopup.open();
 });
@@ -185,4 +204,4 @@ addCardPopup.setEventListeners();
 editPopup.setEventListeners();
 imageInfo.setEventListeners();
 avatarEditPopup.setEventListeners();
-deleteCardPopup.setEventListeners();
+// deleteCardPopup.setEventListeners();

@@ -29,7 +29,7 @@ export default class Card {
       this._handleImageClick(this._data);
     });
   }
-  deleteCardView() {
+  deleteCard() {
     this._cardElement.remove();
   }
   _handleLikeBtn() {
