@@ -23,7 +23,9 @@
             src="<%= require('./images/jacques-cousteau.jpg')%>"
             alt="Avatar"
             class="profile__photo"
+            id="js-avatar"
           />
+
           <button
           class="profile__avatar-edit-button button"
           type="button"
@@ -195,12 +197,12 @@
             <input
             type="url"
               name="link"
-              class="modal__input"
-              id="change-profile-pic-input"
+              class="modal__input modal__input_type_link"
+              id="modal-avatar-input"
               placeholder="Link"
               required
             />
-            <span class="modal__error" id="modal-title-input-error"></span>
+            <span class="modal__error" id="modal-avatar-input-error"></span>
           </label>
         <button
           class="modal__save button modal__save_disabled"

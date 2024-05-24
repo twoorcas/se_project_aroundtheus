@@ -43,3 +43,6 @@ export const deleteCardEl = document.querySelector("#delete-card-modal");
 export const deleteCardSubmitBtn = document.querySelector(
   "#delete-card-submit-btn"
 );
+export const avatarLinkInputId = "modal-avatar-input";
+export const avatarImg = document.querySelector(".profile__photo");
+export const avatarSelector = "#js-avatar";

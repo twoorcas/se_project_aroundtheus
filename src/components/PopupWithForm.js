@@ -16,18 +16,25 @@ export default class PopupWithForm extends Popup {
   reset() {
     this._popupForm.reset();
   }
-  //{'#id1something':modal__input.value,'#id1something':modal__input.value}
-
+  setDelAction(handleFormSubmit) {
+    this._handleFormSubmit = handleFormSubmit;
+    this._submitDelBtn = document.querySelector("#delete-card-submit-btn");
+    this._submitDelBtn.addEventListener("submit", this._handleFormSubmit);
+  }
   setInputValues(data) {
     this._inputEls.forEach((input) => {
       input.value = data[input.name];
     });
   }
+
   setEventListeners() {
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });
+  }
+  setDeleteEventListeners() {
+    super.setEventListeners();
   }
 }

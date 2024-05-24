@@ -53,33 +53,25 @@ export default class Api {
 
     //response is {"message": "This post has been deleted"}
   }
-  // toggleLikeBtn(cardId) {
-  //   fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
-  //     method: "PUT",
-  //     headers: this._headers,
-  //   })
-  //     .then(this.getResult)
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-
-  //   fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
-  //     method: "DELETE",
-  //     headers: this._headers,
-  //   })
-  //     .then(this.getResult)
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }
-  updateProfileImage({ link }) {
+  toggleLikeBtn(card) {
+    if (!card.isLiked) {
+      return fetch(`${this.baseUrl}/cards/${card._id}/likes`, {
+        method: "PUT",
+        headers: this._headers,
+      }).then(this.getResult);
+    }
+    return fetch(`${this.baseUrl}/cards/${card._id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this.getResult);
+  }
+  updateProfileImage(link) {
     fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         avatar: link,
       }),
-      // In the case that anything other than a link is sent, the server will return an error.
     }).then(this.getResult);
   }
   getCardAndUserInfo() {
