@@ -17,11 +17,7 @@ export default class PopupWithForm extends Popup {
   reset() {
     this._popupForm.reset();
   }
-  setDelAction(handleFormSubmit) {
-    this._handleFormSubmit = handleFormSubmit;
-    this._submitDelBtn = document.querySelector("#delete-card-submit-btn");
-    this._submitDelBtn.addEventListener("submit", this._handleFormSubmit);
-  }
+
   setInputValues(data) {
     this._inputEls.forEach((input) => {
       input.value = data[input.name];

@@ -49,18 +49,32 @@ export default class Api {
     return fetch(`${this.baseUrl}/cards/${_id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this.getResult(res));
+    }).then(this.getResult);
 
     //response is {"message": "This post has been deleted"}
   }
+
   toggleLikeBtn(card) {
     if (!card.isLiked) {
-      return fetch(`${this.baseUrl}/cards/${card._id}/likes`, {
+      return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
         method: "PUT",
         headers: this._headers,
       }).then(this.getResult);
     }
-    return fetch(`${this.baseUrl}/cards/${card._id}/likes`, {
+    return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this.getResult);
+  }
+
+  likeCard(card) {
+    return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this.getResult);
+  }
+  unlikeCard(card) {
+    return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this.getResult);

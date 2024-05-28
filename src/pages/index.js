@@ -41,6 +41,7 @@ import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 // elements
 let cardList;
+const deleteCardPopup = new PopupWithConfirmation(deleteCardSelector);
 const imageInfo = new PopupWithImage(picPopupSelector);
 const userProfile = new UserInfo({ nameSelector, jobSelector, avatarSelector });
 const addCardPopup = new PopupWithForm(
@@ -52,10 +53,6 @@ const avatarEditPopup = new PopupWithForm(
   avatarEditSelector,
   handleAvatarSubmit
 );
-// const deleteCardPopup = new PopupWithConfirmation(
-//   deleteCardSelector,
-//   handleDeleteSubmit
-// );
 
 // api
 const api = new Api({
@@ -129,7 +126,8 @@ function creatCard(item) {
     item,
     cardTempSelector,
     handleImageClick,
-    handleDeleteClick
+    handleDeleteClick,
+    handleLikeClick
   );
   const cardItem = cardElement.getView();
   return cardItem;
@@ -155,23 +153,27 @@ function handleAddCardSubmit(inputObj) {
 function handleImageClick({ name, link }) {
   imageInfo.open({ name, link });
 }
+function handleLikeClick(card) {
+  console.log("Current state before API call:", card.isLiked);
+  const actionPromise = card.isLiked
+    ? api.unlikeCard(card)
+    : api.likeCard(card);
 
-function handleDeleteClick(card) {
-  // open popup
-  const deleteCardPopup = new PopupWithConfirmation(
-    deleteCardSelector,
-    handleDeleteSubmit,
-    card
-  );
-  deleteCardPopup.setEventListeners();
-  deleteCardPopup.open();
-  deleteCardPopup.setDelEventListener();
+  actionPromise.then((updatedCard) => {
+    // Directly use the server's response to update the card's state in your client
+    console.log("Current state after API call:", updatedCard); // Now, this should accurately reflect the updated server state.
+
+    // Assuming setLikeAction visually reflects the liking state, it should be synchronized with the updated state
+    card.setLikeAction();
+  });
 }
-function handleDeleteSubmit() {
-  card.deleteCard();
-  console.log(card.id);
-  // api.deleteCard(card.id).then(popup.close());
-  // deleteCardPopup.close();
+function handleDeleteClick(card) {
+  deleteCardPopup.open();
+  deleteCardPopup.setSubmitAction(() => {
+    card.deleteCard();
+    api.deleteCard(card.id).then(deleteCardPopup.close());
+  });
+  //()=>{} doesnt run till form is submited
 }
 
 // form validation
@@ -204,4 +206,4 @@ addCardPopup.setEventListeners();
 editPopup.setEventListeners();
 imageInfo.setEventListeners();
 avatarEditPopup.setEventListeners();
-// deleteCardPopup.setEventListeners();
+deleteCardPopup.setEventListeners();
