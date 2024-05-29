@@ -64,31 +64,35 @@ const api = new Api({
 });
 
 // promise.all
-api.getCardAndUserInfo().then(([serverCardList, serverUserInfo]) => {
-  // load cards from server
-  cardList = new Section(
-    {
-      items: serverCardList,
-      renderer: (item) => {
-        const cardItem = creatCard(item);
-        cardList.addInitialItem(cardItem);
+api
+  .getCardAndUserInfo()
+  .then(([serverCardList, serverUserInfo]) => {
+    // load cards from server
+    cardList = new Section(
+      {
+        items: serverCardList,
+        renderer: (item) => {
+          const cardItem = creatCard(item);
+          cardList.addInitialItem(cardItem);
+        },
       },
-    },
-    cardWrapperSelector
-  );
-  // add initial cards to DOM
-  cardList.renderItems(serverCardList);
-  //likeBtn active if isLiked=true
+      cardWrapperSelector
+    );
+    // add initial cards to DOM
+    cardList.renderItems(serverCardList);
+    //likeBtn active if isLiked=true
 
-  // load user bio from server
-  const name = serverUserInfo.name;
-  const job = serverUserInfo.about;
-  const avatar = serverUserInfo.avatar;
-  // add user bio to DOM
-  userProfile.setUserInfo(name, job);
-  userProfile.setAvatar(avatar);
-});
-
+    // load user bio from server
+    const name = serverUserInfo.name;
+    const job = serverUserInfo.about;
+    const avatar = serverUserInfo.avatar;
+    // add user bio to DOM
+    userProfile.setUserInfo(name, job);
+    userProfile.setAvatar(avatar);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 // handler
 
 function handleAssignEditInput() {
@@ -99,7 +103,12 @@ function handleAssignEditInput() {
 function handleAvatarSubmit(inputObj) {
   avatarEditPopup.showUploadingState();
   const avatarLink = inputObj[avatarLinkInputId];
-  api.updateProfileImage(avatarLink).then(avatarEditPopup.showUploaded());
+  api
+    .updateProfileImage(avatarLink)
+    .then(avatarEditPopup.showUploaded())
+    .catch((err) => {
+      console.error(err);
+    });
   avatarImg.src = avatarLink;
   avatarEditPopup.close();
   formValidators[avatarFormId].disableSubmitButton();
@@ -115,7 +124,10 @@ function handleProfileSubmit(inputObj) {
       editFormNameInput: nameEl,
       editFormAboutInput: jobEl,
     })
-    .then(editPopup.showUploaded());
+    .then(editPopup.showUploaded())
+    .catch((err) => {
+      console.error(err);
+    });
   // sent inputs to server
   userProfile.setUserInfo(nameEl, jobEl);
   // get userinfo from server and apply to profile
@@ -124,7 +136,7 @@ function handleProfileSubmit(inputObj) {
   editPopup.reset();
 }
 function creatCard(item) {
-  console.log("Creating card with item:", item);
+  // console.log("Creating card with item:", item);
   const cardElement = new Card(
     item,
     cardTempSelector,
@@ -136,7 +148,7 @@ function creatCard(item) {
   if (cardElement.isLiked) {
     cardElement.setLikeAction();
   }
-  console.log(cardElement.id);
+  // console.log(cardElement.id);
   return cardItem;
 }
 
@@ -148,14 +160,15 @@ function handleAddCardSubmit(inputObj) {
   api
     .addNewCard({ cardElementName: cardName, cardElementLink: cardLink })
     .then((card) => {
+      // console.log("newCardInfo: ", card);
       addCardPopup.showUploaded();
-      const newCard = creatCard({
-        name: card.name,
-        link: card.link,
-      });
+      const newCard = creatCard(card);
       cardList.addItem(newCard);
       formValidators[addCardFormId].disableSubmitButton();
       addCardPopup.reset();
+    })
+    .catch((err) => {
+      console.error(err);
     });
 }
 
@@ -165,20 +178,33 @@ function handleImageClick({ name, link }) {
 function handleLikeClick(card) {
   // console.log("Current state before API call:", card.isLiked);
   const actionPromise = card.isLiked
-    ? api.unlikeCard(card)
-    : api.likeCard(card);
-  actionPromise.then((updatedCard) => {
-    // Directly use the server's response to update the card's state in your client
-    // console.log("Current state after API call:", updatedCard); // Now, this should accurately reflect the updated server state.
-    // Assuming setLikeAction visually reflects the liking state, it should be synchronized with the updated state
-    card.setLikeAction();
-  });
+    ? api.unlikeCard(card).catch((err) => {
+        console.error(err);
+      })
+    : api.likeCard(card).catch((err) => {
+        console.error(err);
+      });
+  actionPromise
+    .then((updatedCard) => {
+      // Directly use the server's response to update the card's state in your client
+      // console.log("Current state after API call:", updatedCard); // Now, this should accurately reflect the updated server state.
+      // Assuming setLikeAction visually reflects the liking state, it should be synchronized with the updated state
+      card.setLikeAction();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 function handleDeleteClick(card) {
   deleteCardPopup.open();
   deleteCardPopup.setSubmitAction(() => {
     card.deleteCard();
-    api.deleteCard(card.id).then(deleteCardPopup.close());
+    api
+      .deleteCard(card.id)
+      .then(deleteCardPopup.close())
+      .catch((err) => {
+        console.error(err);
+      });
   });
   //()=>{} doesnt run till form is submited
 }

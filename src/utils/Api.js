@@ -11,9 +11,7 @@ export default class Api {
 
     return Promise.reject(`Error: ${res.status}`);
   }
-  // catchErr(err) {
-  //   console.error(err);
-  // }
+
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: this._headers,
@@ -58,13 +56,21 @@ export default class Api {
     return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this.getResult);
+    })
+      .then(this.getResult)
+      .then((card) => {
+        console.log(card);
+      });
   }
   unlikeCard(card) {
     return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this.getResult);
+    })
+      .then(this.getResult)
+      .then((card) => {
+        console.log(card);
+      });
   }
   updateProfileImage(link) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
