@@ -78,6 +78,8 @@ api.getCardAndUserInfo().then(([serverCardList, serverUserInfo]) => {
   );
   // add initial cards to DOM
   cardList.renderItems(serverCardList);
+  //likeBtn active if isLiked=true
+
   // load user bio from server
   const name = serverUserInfo.name;
   const job = serverUserInfo.about;
@@ -122,6 +124,7 @@ function handleProfileSubmit(inputObj) {
   editPopup.reset();
 }
 function creatCard(item) {
+  console.log("Creating card with item:", item);
   const cardElement = new Card(
     item,
     cardTempSelector,
@@ -130,6 +133,10 @@ function creatCard(item) {
     handleLikeClick
   );
   const cardItem = cardElement.getView();
+  if (cardElement.isLiked) {
+    cardElement.setLikeAction();
+  }
+  console.log(cardElement.id);
   return cardItem;
 }
 
@@ -140,29 +147,29 @@ function handleAddCardSubmit(inputObj) {
   addCardPopup.showUploadingState();
   api
     .addNewCard({ cardElementName: cardName, cardElementLink: cardLink })
-    .then(addCardPopup.showUploaded());
-  const newCard = creatCard({
-    name: cardName,
-    link: cardLink,
-  });
-  cardList.addItem(newCard);
-  formValidators[addCardFormId].disableSubmitButton();
-  addCardPopup.reset();
+    .then((card) => {
+      addCardPopup.showUploaded();
+      const newCard = creatCard({
+        name: card.name,
+        link: card.link,
+      });
+      cardList.addItem(newCard);
+      formValidators[addCardFormId].disableSubmitButton();
+      addCardPopup.reset();
+    });
 }
 
 function handleImageClick({ name, link }) {
   imageInfo.open({ name, link });
 }
 function handleLikeClick(card) {
-  console.log("Current state before API call:", card.isLiked);
+  // console.log("Current state before API call:", card.isLiked);
   const actionPromise = card.isLiked
     ? api.unlikeCard(card)
     : api.likeCard(card);
-
   actionPromise.then((updatedCard) => {
     // Directly use the server's response to update the card's state in your client
-    console.log("Current state after API call:", updatedCard); // Now, this should accurately reflect the updated server state.
-
+    // console.log("Current state after API call:", updatedCard); // Now, this should accurately reflect the updated server state.
     // Assuming setLikeAction visually reflects the liking state, it should be synchronized with the updated state
     card.setLikeAction();
   });

@@ -54,19 +54,6 @@ export default class Api {
     //response is {"message": "This post has been deleted"}
   }
 
-  toggleLikeBtn(card) {
-    if (!card.isLiked) {
-      return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
-        method: "PUT",
-        headers: this._headers,
-      }).then(this.getResult);
-    }
-    return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then(this.getResult);
-  }
-
   likeCard(card) {
     return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
       method: "PUT",
