@@ -17,28 +17,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
-.profile__avatar:hover {
-  opacity: 0.5;
-}
+
 .profile__photo {
   object-fit: cover;
   height: 120px;
   width: 120px;
   border-radius: 50%;
 }
-
+.profile__avatar:hover .profile__photo,
+.profile__avatar-edit-button:hover ~ .profile__photo {
+  opacity: 0.5;
+}
 .profile__avatar-edit-button {
   background-image: url(../images/avatarEditIcon.png);
   width: 26px;
   height: 26px;
   position: absolute;
+  top: 50%;
+  left: 50%;
   visibility: hidden;
+  z-index: 1;
+  transform: translate(-50%, -50%);
 }
-.profile__avatar:hover > .profile__avatar-edit-button {
+.profile__avatar:hover .profile__avatar-edit-button,
+.profile__avatar-edit-button:hover {
   visibility: visible;
 }
-/*ask bot how to creat avatar hover state? when it is hovered, avatar needs to be dimmed and on the center there is a pencil icon representing it's editable*/
+
 .profile__info {
   margin-left: 30px;
 }

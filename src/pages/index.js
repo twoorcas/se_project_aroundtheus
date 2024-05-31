@@ -136,7 +136,6 @@ function handleProfileSubmit(inputObj) {
   editPopup.reset();
 }
 function creatCard(item) {
-  // console.log("Creating card with item:", item);
   const cardElement = new Card(
     item,
     cardTempSelector,
@@ -145,10 +144,6 @@ function creatCard(item) {
     handleLikeClick
   );
   const cardItem = cardElement.getView();
-  if (cardElement.isLiked) {
-    cardElement.setLikeAction();
-  }
-  // console.log(cardElement.id);
   return cardItem;
 }
 
@@ -160,7 +155,6 @@ function handleAddCardSubmit(inputObj) {
   api
     .addNewCard({ cardElementName: cardName, cardElementLink: cardLink })
     .then((card) => {
-      // console.log("newCardInfo: ", card);
       addCardPopup.showUploaded();
       const newCard = creatCard(card);
       cardList.addItem(newCard);
@@ -176,7 +170,6 @@ function handleImageClick({ name, link }) {
   imageInfo.open({ name, link });
 }
 function handleLikeClick(card) {
-  // console.log("Current state before API call:", card.isLiked);
   const actionPromise = card.isLiked
     ? api.unlikeCard(card).catch((err) => {
         console.error(err);
@@ -186,9 +179,6 @@ function handleLikeClick(card) {
       });
   actionPromise
     .then((updatedCard) => {
-      // Directly use the server's response to update the card's state in your client
-      // console.log("Current state after API call:", updatedCard); // Now, this should accurately reflect the updated server state.
-      // Assuming setLikeAction visually reflects the liking state, it should be synchronized with the updated state
       card.setLikeAction();
     })
     .catch((err) => {

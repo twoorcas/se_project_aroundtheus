@@ -41,6 +41,7 @@ export default class Card {
   }
   setLikeAction() {
     this._likeBtn.classList.toggle("card__button-active");
+    this.isLiked = !this.isLiked;
   }
 
   getView() {
@@ -50,6 +51,9 @@ export default class Card {
     this._cardImageElement.src = this._link;
     this._cardImageElement.alt = this._name;
     this._setEventListeners();
+    if (this.isLiked) {
+      this._likeBtn.classList.add("card__button-active");
+    }
     return this._element;
   }
 }
