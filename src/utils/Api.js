@@ -56,21 +56,19 @@ export default class Api {
     return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    })
-      .then(this.getResult)
-      .then((card) => {
-        console.log(card);
-      });
+    }).then(this.getResult);
+    // .then((card) => {
+    //   console.log(card);
+    // });
   }
   unlikeCard(card) {
     return fetch(`${this.baseUrl}/cards/${card.id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this.getResult)
-      .then((card) => {
-        console.log(card);
-      });
+    }).then(this.getResult);
+    // .then((card) => {
+    //   console.log(card);
+    // });
   }
   updateProfileImage(link) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {

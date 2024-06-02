@@ -37,4 +37,7 @@ export default class PopupWithForm extends Popup {
   showUploaded() {
     this._submitBtn.innerText = "Saved";
   }
+  showToUpload() {
+    this._submitBtn.innerText = "Save";
+  }
 }

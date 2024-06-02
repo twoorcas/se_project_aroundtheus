@@ -163,6 +163,9 @@ function handleAddCardSubmit(inputObj) {
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      showToUpload();
     });
 }
 
@@ -170,16 +173,13 @@ function handleImageClick({ name, link }) {
   imageInfo.open({ name, link });
 }
 function handleLikeClick(card) {
-  const actionPromise = card.isLiked
-    ? api.unlikeCard(card).catch((err) => {
-        console.error(err);
-      })
-    : api.likeCard(card).catch((err) => {
-        console.error(err);
-      });
+  const actionPromise = card.isLiked()
+    ? api.unlikeCard(card)
+    : api.likeCard(card);
   actionPromise
     .then((updatedCard) => {
-      card.setLikeAction();
+      card.setIsLiked(updatedCard.isLiked);
+      console.log(updatedCard);
     })
     .catch((err) => {
       console.error(err);
