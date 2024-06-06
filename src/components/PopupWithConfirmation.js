@@ -13,7 +13,7 @@ export default class PopupWithConfirmation extends Popup {
     this._submitBtn.innerText = "Loading";
   }
   showDeleted() {
-    this._submitBtn.innerText = this._submitBtn.textContent;
+    this._submitBtn.innerText = this._btnText;
   }
   setEventListeners() {
     super.setEventListeners();

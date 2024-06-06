@@ -106,7 +106,6 @@ function handleAvatarSubmit(inputObj) {
   api
     .updateProfileImage(avatarLink)
     .then((res) => {
-      avatarEditPopup.showUploaded();
       console.log(res);
       userProfile.setAvatar(res.avatar);
       avatarEditPopup.close();
@@ -131,7 +130,6 @@ function handleProfileSubmit(inputObj) {
       editFormAboutInput: jobEl,
     })
     .then((res) => {
-      editPopup.showUploaded();
       userProfile.setUserInfo(res.name, res.about); // get userinfo from server and apply to profile
       editPopup.close();
       formValidators[profileEditFormId].disableSubmitButton();
@@ -139,6 +137,9 @@ function handleProfileSubmit(inputObj) {
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      editPopup.showUploaded();
     });
 }
 function creatCard(item) {
@@ -171,7 +172,7 @@ function handleAddCardSubmit(inputObj) {
       console.error(err);
     })
     .finally(() => {
-      addCardPopup.showToUpload;
+      addCardPopup.showToUpload();
     });
 }
 
