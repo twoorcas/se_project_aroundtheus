@@ -105,14 +105,20 @@ function handleAvatarSubmit(inputObj) {
   const avatarLink = inputObj[avatarLinkInputId];
   api
     .updateProfileImage(avatarLink)
-    .then(avatarEditPopup.showUploaded())
+    .then((res) => {
+      avatarEditPopup.showUploaded();
+      console.log(res);
+      userProfile.setAvatar(res.avatar);
+      avatarEditPopup.close();
+      formValidators[avatarFormId].disableSubmitButton();
+      avatarEditPopup.reset();
+    })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      avatarEditPopup.showUploaded();
     });
-  avatarImg.src = avatarLink;
-  avatarEditPopup.close();
-  formValidators[avatarFormId].disableSubmitButton();
-  avatarEditPopup.reset();
 }
 
 function handleProfileSubmit(inputObj) {
@@ -124,16 +130,16 @@ function handleProfileSubmit(inputObj) {
       editFormNameInput: nameEl,
       editFormAboutInput: jobEl,
     })
-    .then(editPopup.showUploaded())
+    .then((res) => {
+      editPopup.showUploaded();
+      userProfile.setUserInfo(res.name, res.about); // get userinfo from server and apply to profile
+      editPopup.close();
+      formValidators[profileEditFormId].disableSubmitButton();
+      editPopup.reset();
+    })
     .catch((err) => {
       console.error(err);
     });
-  // sent inputs to server
-  userProfile.setUserInfo(nameEl, jobEl);
-  // get userinfo from server and apply to profile
-  editPopup.close();
-  formValidators[profileEditFormId].disableSubmitButton();
-  editPopup.reset();
 }
 function creatCard(item) {
   const cardElement = new Card(
@@ -148,7 +154,6 @@ function creatCard(item) {
 }
 
 function handleAddCardSubmit(inputObj) {
-  addCardPopup.close();
   const cardName = inputObj[addCardInputTitleId];
   const cardLink = inputObj[addCardInputLinkId];
   addCardPopup.showUploadingState();
@@ -159,13 +164,14 @@ function handleAddCardSubmit(inputObj) {
       const newCard = creatCard(card);
       cardList.addItem(newCard);
       formValidators[addCardFormId].disableSubmitButton();
+      addCardPopup.close();
       addCardPopup.reset();
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(() => {
-      showToUpload();
+      addCardPopup.showToUpload;
     });
 }
 
@@ -179,7 +185,6 @@ function handleLikeClick(card) {
   actionPromise
     .then((updatedCard) => {
       card.setIsLiked(updatedCard.isLiked);
-      console.log(updatedCard);
     })
     .catch((err) => {
       console.error(err);
@@ -188,15 +193,20 @@ function handleLikeClick(card) {
 function handleDeleteClick(card) {
   deleteCardPopup.open();
   deleteCardPopup.setSubmitAction(() => {
-    card.deleteCard();
+    deleteCardPopup.showLoading();
     api
       .deleteCard(card.id)
-      .then(deleteCardPopup.close())
+      .then((res) => {
+        deleteCardPopup.close();
+        card.deleteCard();
+      })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        deleteCardPopup.showDeleted();
       });
   });
-  //()=>{} doesnt run till form is submited
 }
 
 // form validation

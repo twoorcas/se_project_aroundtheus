@@ -6,6 +6,7 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._inputEls = this._popupForm.querySelectorAll(".modal__input");
     this._submitBtn = this._popupElement.querySelector(".modal__save");
+    this._buttonText = this._submitBtn.textContent;
   }
   _getInputValues() {
     this._inputObj = {};
@@ -35,9 +36,6 @@ export default class PopupWithForm extends Popup {
     this._submitBtn.innerText = "Saving";
   }
   showUploaded() {
-    this._submitBtn.innerText = "Saved";
-  }
-  showToUpload() {
-    this._submitBtn.innerText = "Save";
+    this._submitBtn.innerText = this._buttonText;
   }
 }
