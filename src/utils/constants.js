@@ -1,33 +1,6 @@
 /**The index.js file must contain only the code for selecting elements, creating class instances, and adding specific event listeners. Other code, such as the array of initial cards and any configuration objects you are using, should be moved to a separate utils/constants.js file and imported into index.js */
 
-export const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
 export const cardWrapperSelector = ".cards__list";
-
 export const formList = document.querySelectorAll(".modal__form");
 export const settings = {
   formSelector: ".modal__form",
@@ -51,8 +24,29 @@ export const editInputDescriptionEl = document.getElementById(
 export const addCardInputTitleId = "modal-image-title-input";
 export const addCardInputLinkId = "modal-link-input";
 export const addCardFormId = "add-card-form";
+export const avatarFormId = "change-profile-pic-form";
+export const profileEditFormId = "profile-edit-form";
+export const profileEditForm = document.getElementById(profileEditFormId);
 export const cardTempSelector = "#card-template";
 export const profileEditBtn = document.querySelector("#profile-edit-button");
 export const addCardBtn = document.querySelector(".profile__add-button");
 export const picPopupSelector = "#open-pic-modal";
 export const formValidators = {};
+export const deleteCardPopup = document.querySelector("#delete-card-modal");
+export const trashBtnArr = document.querySelectorAll(".card__trash");
+export const avatarEditBtn = document.querySelector(
+  "#profile-avatar-edit-button"
+);
+export const avatarEditModal = document.querySelector(
+  "#change-profile-pic-modal"
+);
+export const avatarEditSelector = "#change-profile-pic-modal";
+export const deleteCardSelector = "#delete-card-modal";
+export const deleteCardEl = document.querySelector("#delete-card-modal");
+export const deleteCardSubmitBtn = document.querySelector(
+  "#delete-card-submit-btn"
+);
+export const avatarLinkInputId = "modal-avatar-input";
+export const avatarImg = document.querySelector(".profile__photo");
+export const avatarSelector = "#js-avatar";
+export const saveBtns = document.querySelectorAll(".modal__save");
