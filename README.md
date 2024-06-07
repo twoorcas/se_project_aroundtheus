@@ -3,16 +3,12 @@
 ### Overview
 
 - Intro
-- Example
-- Github link
+- Link
 
 **Intro**
 
 This project is made to demonstrate my html, css and javascript coding skills.
 
-**Example**
-
-![screen width: 1280px](./images/screenshot.png)
 
 **Github link and video link**
 
