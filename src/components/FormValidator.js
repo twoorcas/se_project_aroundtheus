@@ -7,6 +7,7 @@ export default class FormValidator {
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
     this._errorList = settings.errorList;
+    this._formGetReset = formElement.querySelector("#profile-edit-form");
   }
   _showInputError(inputEl) {
     this._errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);

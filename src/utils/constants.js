@@ -26,6 +26,7 @@ export const addCardInputLinkId = "modal-link-input";
 export const addCardFormId = "add-card-form";
 export const avatarFormId = "change-profile-pic-form";
 export const profileEditFormId = "profile-edit-form";
+export const profileEditForm = document.getElementById(profileEditFormId);
 export const cardTempSelector = "#card-template";
 export const profileEditBtn = document.querySelector("#profile-edit-button");
 export const addCardBtn = document.querySelector(".profile__add-button");

@@ -8,6 +8,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import {
   avatarEditBtn,
+  profileEditForm,
   saveBtns,
   avatarFormId,
   avatarSelector,
@@ -216,21 +217,28 @@ const enableValidation = (formList) => {
     const formValidator = new FormValidator(settings, form);
     formValidator.enableValidation();
     formValidators[form.getAttribute("id")] = formValidator;
-
     return formValidators;
   });
 };
-
 // function calls and event listeners
 
 addCardBtn.addEventListener("click", () => {
+  formValidators[addCardFormId].resetValidation();
+  formValidators[addCardFormId].disableSubmitButton();
+  addCardPopup.reset();
   addCardPopup.open();
 });
 profileEditBtn.addEventListener("click", () => {
+  formValidators[profileEditFormId].resetValidation();
+  formValidators[profileEditFormId].disableSubmitButton();
+  editPopup.reset();
   editPopup.open();
   handleAssignEditInput();
 });
 avatarEditBtn.addEventListener("click", () => {
+  avatarEditPopup.reset();
+  formValidators[avatarFormId].resetValidation();
+  formValidators[avatarFormId].disableSubmitButton();
   avatarEditPopup.open();
 });
 
